@@ -2,7 +2,7 @@
   <div>
   <img v-if="weather" :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`"/>
     <h1>Météo</h1><br>
-    <input v-model="city" @keyup.enter="getWeather" autofocus /><br>
+    <input placeholder="Ville" ref="inputMto" v-model="city" @keyup.enter="getWeather" autofocus /><br>
     <div v-if="weather">
       <p>Température à {{ weather.name }} : {{ weather.main.temp }}°C</p>
       <p>Météo : {{ weather.weather[0].description }} </p>
@@ -13,10 +13,11 @@
 
 <script setup>
 
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-const city = ref('Paris')
+const inputMto = ref(null)
+const city = ref('')
 const apiKey = '694f728d23584c81d486a33186d9abeb'
 const weather = ref(null)
 
@@ -40,6 +41,8 @@ const condition = computed(() => {
   return getWeatherCategory(id)
 })
 
+
+
 function getWeatherCategory(id) {
   if (id >= 200 && id < 300) return "orage";
   if (id >= 300 && id < 400) return "bruine";
@@ -49,6 +52,13 @@ function getWeatherCategory(id) {
   if (id === 800) return "dégagé";
   if (id >= 801 && id <= 804) return "nuageux";
 }
+
+
+onMounted(() => {
+  inputMto.value?.focus();
+  getWeather();
+});
+
 </script>
 
 <style scoped>

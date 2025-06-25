@@ -20,20 +20,24 @@
       <button @click="removeItem(index)">suppr</button>
     </p>
 
-    <input @keyup.enter.prevent="addMess" v-model="message" autofocus /> <br />
+    <input placeholder="To Do" ref="inputTd" @keyup.enter.prevent="addMess" v-model="message" autofocus /> <br />
   </div>
 </template>
 
 <script setup>
-import { computed, ref} from 'vue'
+import { computed, onMounted, ref} from 'vue'
 
 const storedTodos = localStorage.getItem('todo')
+const inputTd = ref(null)
 
 function saveTodos() {
   localStorage.setItem('todo', JSON.stringify(td.value))
   console.log(localStorage.getItem('todo'))
 }
 
+onMounted(() => {
+  inputTd.value?.focus();
+});
 
 const message = ref('')
 const td = ref(storedTodos ? JSON.parse(storedTodos) : [])
@@ -105,7 +109,7 @@ select {
 
 p {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
   padding: 8px 10px;
   margin: 6px 0;
@@ -140,8 +144,9 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition:
-    background-color 0.3s,
-    transform 0.2s;
+  background-color 0.3s,
+  transform 0.2s;
+  font-size: 14px;
 }
 
 button:hover {
