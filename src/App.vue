@@ -41,9 +41,6 @@ window.addEventListener('hashchange', () => {
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<!-- <template>
-  <RouterView />
-</template> -->
 <template>
   <div id="app">
     <nav>
@@ -52,7 +49,6 @@ import { RouterLink, RouterView } from 'vue-router'
       <router-link to="/todo">To-Do</router-link>
     </nav>
 
-    <!-- C’est ici que le composant de page s’affiche -->
     <router-view />
   </div>
 </template>
