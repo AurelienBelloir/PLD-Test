@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div>Tasks to do :</div>
-    <br />
+    <h1>Tasks to do</h1>
+    <br/>
 
     <select v-model="selected">
       <option v-for="option in options" :value="option.value" :key="option.value">
@@ -13,11 +13,10 @@
       v-for="(item, index) in filter()"
       :class="item.checked ? 'checked' : ''"
       :key="index"
-      style="white-space: pre-line"
-    >
+      >
       <input type="checkbox" v-model="item.checked" />
       {{ item.id }}) {{ item.message }}
-      <button @click="removeItem(index)">suppr</button>
+      <PldButton @click="removeItem(index)">suppr</PldButton>
     </p>
 
     <input placeholder="To Do" ref="inputTd" @keyup.enter.prevent="addMess" v-model="message" autofocus /> <br />
@@ -26,6 +25,8 @@
 
 <script setup>
 import { computed, onMounted, ref} from 'vue'
+import PldButton from '../components/utils/PldButton.vue'
+
 
 const storedTodos = localStorage.getItem('todo')
 const inputTd = ref(null)

@@ -1,26 +1,28 @@
 <template>
   <div>
   <img v-if="weather" :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`"/>
-    <h1>Météo</h1><br>
-    <input placeholder="Ville" ref="inputMto" v-model="city" @keyup.enter="getWeather" autofocus /><br>
+    <Title>Météo</Title>
+    <label>coucou</label>
+    <input @change="getWeather" placeholder="Ville" ref="inputMto" v-model="city" autofocus /><br>
     <div v-if="weather">
       <p>Température à {{ weather.name }} : {{ weather.main.temp }}°C</p>
       <p>Météo : {{ weather.weather[0].description }} </p>
     </div>
   </div>
 <div v-if="weather" :class="`weather-container ${condition}`"></div>
+
 </template>
 
 <script setup>
 
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import Title from '../components/utils/Title.vue';
 
 const inputMto = ref(null)
 const city = ref('')
 const apiKey = '694f728d23584c81d486a33186d9abeb'
 const weather = ref(null)
-
 
 const getWeather = async () => {
   try {
@@ -85,11 +87,7 @@ div {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  font-size: 2em;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
+
 
 input[type='text'] {
   padding: 10px;
