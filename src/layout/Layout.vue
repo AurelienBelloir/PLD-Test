@@ -1,6 +1,6 @@
 <template>
   <PLDheader/>
-  <div class="tutu"><router-view /></div>
+  <div class="main"><router-view /></div>
   <PLDFooter/>
 </template>
 <script setup>
@@ -11,7 +11,7 @@ import PLDheader from '@/components/utils/PLDheader.vue';
 
 </script>
 <style>
-.tutu {
+.main {
   min-height: 100vh;
 }
 </style>

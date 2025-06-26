@@ -18,7 +18,6 @@
       {{ item.id }}) {{ item.message }}
       <PldButton @click="removeItem(index)">suppr</PldButton>
     </p>
-
     <input placeholder="To Do" ref="inputTd" @keyup.enter.prevent="addMess" v-model="message" autofocus /> <br />
   </div>
 </template>
@@ -27,6 +26,7 @@
 import { computed, onMounted, ref} from 'vue'
 import PldButton from '../components/utils/PldButton.vue'
 
+const show = ref(false)
 
 const storedTodos = localStorage.getItem('todo')
 const inputTd = ref(null)
@@ -46,11 +46,11 @@ const count = computed(() => {
   return td.value.length > 0 ? td.value[td.value.length - 1].id : 0
 })
 
-const addMess = () => {
+const addMess = (bool) => {
   td.value.push({ checked: false, message: message.value, id: count.value + 1 })
   message.value = ''
-  saveTodos()
-}
+    saveTodos()
+  }
 
 const selected = ref('all')
 
@@ -80,6 +80,40 @@ const removeItem = (index) => {
 </script>
 
 <style scoped>
+
+.BtnPopUp {
+  padding: 4px 10px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+  background-color 0.3s,
+  transform 0.2s;
+  font-size: 14px;
+}
+.BtnPopUp:hover {
+  background-color: #000000;
+  transform: scale(1.05);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 300px;
+  max-width: 90%;
+}
+
 .checked {
   text-decoration: line-through;
   color: rgb(3, 171, 0);
